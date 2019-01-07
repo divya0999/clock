@@ -1,0 +1,89 @@
+<div class= "clock">
+  <div class="clock-face">
+    <div class="hand hour-hand"></div>
+    <div class="hand minute-hand"></div>
+    <div class="hand second-hand"></div>
+  </div>
+</div>
+
+<style>html {
+  background: url(https://cdn.stocksnap.io/img-thumbs/960w/355SCK0TFB.jpg);
+  background-size:cover;
+ background-repeat:no-repeat;
+  text-align: center;
+  
+  }
+
+body{
+  
+  margin: 0;
+  display:flex;
+  flex:1;
+  min-height:100vh;
+  align-items: center;
+  justify-content:center;
+}
+
+.clock{
+   margin: 50px auto;
+  padding: 2rem;
+  position:relative;
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  border: 9px solid white;
+   box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+}
+
+.clock-face{
+ position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px);
+  
+}
+
+.hand {
+  position:absolute;
+  height:6px;
+  width:50%;
+  top:50%;
+  background:black;
+   transform-origin: 100%;
+      transform: rotate(90deg);
+  transition: all 0.05s
+    transition-timing-function:cubic-bezier(0.28, 2.02, 0.35, 1.6);
+  }
+</style>
+
+<script>
+  
+  function setDate() {
+  const sec = document.querySelector(".second-hand")
+  const min = document.querySelector(".minute-hand")
+  const hr = document.querySelector(".hour-hand")
+  
+  const now = new Date();
+  
+  const seconds = now.getSeconds();
+  const secondDegree = ((seconds/60) * 360) + 90; // 1 degree move
+  sec.style.transform = `rotate(${secondDegree}deg)`;
+    
+  const minutes = now.getMinutes();
+  const minDegree = ((minutes/60) *360) + ((seconds/60)*6)  + 90; // 6 degree move
+  min.style.transform = `rotate(${minDegree}deg)`;
+    
+   const hours = now.getHours();
+  const hourDegree = ((hours/12) *360) + ((minutes/60)*30)  + 90; //30 degree move
+  hr.style.transform = `rotate(${hourDegree}deg)`;
+    
+  }
+  
+  
+  setInterval(setDate, 1000);
+  setDate();
+</script>
